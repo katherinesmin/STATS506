@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set #04</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="PS4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PS4_files/libs/quarto-html/quarto.js"></script>
+<script src="PS4_files/libs/quarto-html/popper.min.js"></script>
+<script src="PS4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="PS4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="PS4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PS4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="PS4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="PS4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="PS4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set #04</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("nycflights13")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airlines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  carrier name                    
+  &lt;chr&gt;   &lt;chr&gt;                   
+1 9E      Endeavor Air Inc.       
+2 AA      American Airlines Inc.  
+3 AS      Alaska Airlines Inc.    
+4 B6      JetBlue Airways         
+5 DL      Delta Air Lines Inc.    
+6 EV      ExpressJet Airlines Inc.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airports)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  faa   name                             lat   lon   alt    tz dst   tzone      
+  &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      
+1 04G   Lansdowne Airport               41.1 -80.6  1044    -5 A     America/Ne…
+2 06A   Moton Field Municipal Airport   32.5 -85.7   264    -6 A     America/Ch…
+3 06C   Schaumburg Regional             42.0 -88.1   801    -6 A     America/Ch…
+4 06N   Randall Airport                 41.4 -74.4   523    -5 A     America/Ne…
+5 09J   Jekyll Island Airport           31.1 -81.4    11    -5 A     America/Ne…
+6 0A9   Elizabethton Municipal Airport  36.4 -82.2  1593    -5 A     America/Ne…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 19
+   year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+  &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+1  2013     1     1      517            515         2      830            819
+2  2013     1     1      533            529         4      850            830
+3  2013     1     1      542            540         2      923            850
+4  2013     1     1      544            545        -1     1004           1022
+5  2013     1     1      554            600        -6      812            837
+6  2013     1     1      554            558        -4      740            728
+# ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(planes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  tailnum  year type               manufacturer model engines seats speed engine
+  &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+1 N10156   2004 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…
+2 N102UW   1998 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
+3 N103US   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
+4 N104UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
+5 N10575   2002 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…
+6 N105UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(weather)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 15
+  origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_gust
+  &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4         NA
+2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06        NA
+3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5         NA
+4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7         NA
+5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7         NA
+6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5         NA
+# ℹ 4 more variables: precip &lt;dbl&gt;, pressure &lt;dbl&gt;, visib &lt;dbl&gt;,
+#   time_hour &lt;dttm&gt;</code></pre>
+</div>
+</div>
+<section id="a." class="level4">
+<h4 class="anchored" data-anchor-id="a.">a.</h4>
+<p><u>Mean</u> and <u>median</u> <u><strong>departure delay per airport.</strong></u></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> airports <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(flights, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"faa"</span> <span class="ot">=</span> <span class="st">"origin"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, faa) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean_Departure_Delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median_Departure_Delay =</span> <span class="fu">median</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">FlightsCount =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FlightsCount <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Mean_Departure_Delay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+# Groups:   name [3]
+  name            faa   Mean_Departure_Delay Median_Departure_Delay FlightsCount
+  &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;                  &lt;dbl&gt;        &lt;int&gt;
+1 Newark Liberty… EWR                   15.1                     -1       120835
+2 John F Kennedy… JFK                   12.1                     -1       111279
+3 La Guardia      LGA                   10.3                     -3       104662</code></pre>
+</div>
+</div>
+<p><u>Mean</u> and <u>median</u> <u><strong>arrival delay per airport.</strong></u> Exclude any destination with under 10 flights.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> airports <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(flights, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"faa"</span> <span class="ot">=</span> <span class="st">"dest"</span>)) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Group the data by airport, calculate mean and median arrival delay</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name, faa) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean_Arrival_Delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median_Arrival_Delay =</span> <span class="fu">median</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">FlightsCount =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FlightsCount <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span>  <span class="co"># Exclude destinations with under 10 flights</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Mean_Arrival_Delay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 98 × 5
+# Groups:   name [98]
+   name               faa   Mean_Arrival_Delay Median_Arrival_Delay FlightsCount
+   &lt;chr&gt;              &lt;chr&gt;              &lt;dbl&gt;                &lt;dbl&gt;        &lt;int&gt;
+ 1 Columbia Metropol… CAE                 41.8                   28          116
+ 2 Tulsa Intl         TUL                 33.7                   14          315
+ 3 Will Rogers World  OKC                 30.6                   16          346
+ 4 Jackson Hole Airp… JAC                 28.1                   15           25
+ 5 Mc Ghee Tyson      TYS                 24.1                    2          631
+ 6 Dane Co Rgnl Trua… MSN                 20.2                    1          572
+ 7 Richmond Intl      RIC                 20.1                    1         2454
+ 8 Akron Canton Regi… CAK                 19.7                    3          864
+ 9 Des Moines Intl    DSM                 19.0                    0          569
+10 Gerald R Ford Intl GRR                 18.2                    1          765
+# ℹ 88 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="b." class="level4">
+<h4 class="anchored" data-anchor-id="b.">b.</h4>
+<p>How many flights did the aircraft model with the fastest average speed take? Produce a tibble with 1 row, and entires for the model, average speed (in MPH) and number of flights.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes, <span class="at">by =</span> <span class="st">"tailnum"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#find numjer of fliughts from flights data tailnum ; n=81</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Average_Speed_MPH =</span> speed,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Num_Flights =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Average_Speed_MPH)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+ℹ Please use `reframe()` instead.
+ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+  always returns an ungrouped data frame and adjust accordingly.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'model'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+# Groups:   model [1]
+  model   Average_Speed_MPH Num_Flights
+  &lt;chr&gt;               &lt;int&gt;       &lt;int&gt;
+1 DC-9-51               432          91</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#confirm</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>planes <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(speed)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,322 × 9
+# Groups:   model [127]
+   tailnum  year type              manufacturer model engines seats speed engine
+   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+ 1 N600TR   1979 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 2 N675MC   1975 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 3 N762NC   1976 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 4 N767NC   1977 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 5 N774NC   1978 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 6 N777NC   1979 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 7 N779NC   1979 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 8 N782NC   1980 Fixed wing multi… MCDONNELL D… DC-9…       2   139   432 Turbo…
+ 9 N381AA   1956 Fixed wing multi… DOUGLAS      DC-7…       4   102   232 Recip…
+10 N615AA   1967 Fixed wing multi… BEECH        65-A…       2     9   202 Turbo…
+# ℹ 3,312 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(model <span class="sc">==</span> <span class="st">"DC-9-51"</span>) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      n
+  &lt;int&gt;
+1    91</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-2" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>nnmaps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/katherinemin/Downloads/chicago-nmmaps.csv"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>nnmaps<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(nnmaps<span class="sc">$</span>date)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nnmaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   1461 obs. of  11 variables:
+ $ city         : chr  "chic" "chic" "chic" "chic" ...
+ $ date         : Date, format: "1997-01-01" "1997-01-02" ...
+ $ temp         : num  36 45 40 51.5 27 17 16 19 26 16 ...
+ $ o3           : num  5.66 5.53 6.29 7.54 20.76 ...
+ $ dewpoint     : num  37.5 47.2 38 45.5 11.2 ...
+ $ pm10         : num  13.1 41.9 27 25.1 15.3 ...
+ $ season       : chr  "Winter" "Winter" "Winter" "Winter" ...
+ $ yday         : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ month        : chr  "Jan" "Jan" "Jan" "Jan" ...
+ $ month_numeric: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ year         : int  1997 1997 1997 1997 1997 1997 1997 1997 1997 1997 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>get_temp <span class="ot">&lt;-</span> <span class="cf">function</span>(df_month, df_year, data, <span class="at">celsius =</span> <span class="cn">FALSE</span>, <span class="at">average_fn =</span> mean) {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(df_month)) {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    month_numeric <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">tolower</span>(df_month), <span class="fu">tolower</span>(month.abb))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.na</span>(month_numeric)) {</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"The input must be a numeric value of 1-12 or a three letter month abbreviation."</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (df_month <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">||</span> df_month <span class="sc">&gt;</span> <span class="dv">12</span>) {</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"The input must be a numeric value between 1 and 12."</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    month_numeric <span class="ot">&lt;-</span> df_month</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  subset_data <span class="ot">&lt;-</span> data[data<span class="sc">$</span>month_numeric <span class="sc">==</span> month_numeric <span class="sc">&amp;</span> data<span class="sc">$</span>year <span class="sc">==</span> df_year, ]</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(subset_data) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"No data available for the specified month and year."</span>)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  mean_temp <span class="ot">&lt;-</span> <span class="fu">average_fn</span>(subset_data<span class="sc">$</span>temp)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (celsius) {</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    mean_temp <span class="ot">&lt;-</span> (mean_temp <span class="sc">-</span> <span class="dv">32</span>) <span class="sc">*</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mean_temp)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="st">"Apr"</span>, <span class="dv">1999</span>, <span class="at">data =</span> nnmaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 49.8</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="st">"Apr"</span>, <span class="dv">1999</span>, <span class="at">data =</span> nnmaps, <span class="at">celsius =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.888889</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="dv">10</span>, <span class="dv">1998</span>, <span class="at">data =</span> nnmaps, <span class="at">average_fn =</span> median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="dv">13</span>, <span class="dv">1998</span>, <span class="at">data =</span> nnmaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in get_temp(13, 1998, data = nnmaps): The input must be a numeric value between 1 and 12.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="dv">2</span>, <span class="dv">2005</span>, <span class="at">data =</span> nnmaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in get_temp(2, 2005, data = nnmaps): No data available for the specified month and year.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_temp</span>(<span class="st">"November"</span>, <span class="dv">1999</span>, <span class="at">data =</span>nnmaps, <span class="at">celsius =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">average_fn =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>           x <span class="sc">%&gt;%</span> sort <span class="ot">-&gt;</span> x</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>           x[<span class="dv">2</span><span class="sc">:</span>(<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>)] <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> return</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>         })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in get_temp("November", 1999, data = nnmaps, celsius = TRUE, average_fn = function(x) {: The input must be a numeric value of 1-12 or a three letter month abbreviation.</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-3" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
+<section id="a.-1" class="level4">
+<h4 class="anchored" data-anchor-id="a.-1">a.</h4>
+<p>/*<em>Import the Data*</em>/<br>
+filename recs2020 ‘/home/u63650722/recs2020_public_v5.csv’;<br>
+<br>
+proc import datafile=recs2020<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out=recs<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbms=csv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getnames=yes;<br>
+run;</p>
+<p>/*<em>Check the data*</em>/<br>
+proc print data=recs(obs=5);&nbsp; var DOEID NWEIGHT REGIONC;</p>
+<p>Highest State:</p>
+<p>proc freq data=recs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tables state_name / out=state_summary;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weight nweight;<br>
+run;</p>
+<p>proc sort data=state_summary;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by descending count;<br>
+run;<br>
+<a href="https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/d79735a4-8ee4-4dbe-a6c3-77145cd8d0f2/results" class="uri">https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/d79735a4-8ee4-4dbe-a6c3-77145cd8d0f2/results</a><img src="images/Screenshot%202023-10-24%20at%205.18.38%20AM.png" class="img-fluid"></p>
+<p>Michigan:</p>
+<p>data michigan;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set state_summary;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where state_name = “Michigan”;<br>
+run;</p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.19.11%20AM.png" class="img-fluid"></p>
+</section>
+<section id="b.-1" class="level4">
+<h4 class="anchored" data-anchor-id="b.-1">b.</h4>
+<p>/*<em>Check the data*</em>/<br>
+proc print data=recs(obs=5);&nbsp; var DOLLAREL;</p>
+<p>proc univariate data=recs noprint;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var DOLLAREL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where DOLLAREL&gt;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;histogram DOLLAREL;<br>
+run;<br>
+<a href="https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/7b7769bd-eb3d-4eed-bbf8-75f93f6cd617/results" class="uri">https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/7b7769bd-eb3d-4eed-bbf8-75f93f6cd617/results</a></p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.19.48%20AM.png" class="img-fluid"></p>
+</section>
+<section id="c." class="level4">
+<h4 class="anchored" data-anchor-id="c.">c.</h4>
+<p>data recs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set recs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where DOLLAREL&gt;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_electricity_cost = log(DOLLAREL);<br>
+run;</p>
+<p>proc univariate data=recs noprint;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var log_electricity_cost;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;histogram log_electricity_cost;<br>
+run;<br>
+<a href="https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/d625c9b0-3c88-4022-b4d2-eba768548a7c/results" class="uri">https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/d625c9b0-3c88-4022-b4d2-eba768548a7c/results</a></p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.20.35%20AM.png" class="img-fluid"></p>
+</section>
+<section id="d." class="level4">
+<h4 class="anchored" data-anchor-id="d.">d.</h4>
+<p>data recs_weight;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set recs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weight=nweight;<br>
+run;</p>
+<p><em>proc reg data=recs_weight;</em><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model log_electricity_cost = TOTROOMS PRKGPLC1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output out=reg_results predicted=predicted_values residual=residuals;<br>
+run;<br>
+<a href="https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/24fffd40-cd3d-4017-855d-024a2c3585e4/results" class="uri">https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/24fffd40-cd3d-4017-855d-024a2c3585e4/results</a></p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.20.58%20AM.png" class="img-fluid"></p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.21.10%20AM.png" class="img-fluid"></p>
+</section>
+<section id="e." class="level4">
+<h4 class="anchored" data-anchor-id="e.">e.</h4>
+<p>/* Calculate the actual electricity cost (unlog the predicted values) */<br>
+data reg_results_e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set reg_results;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actual_Electricity_Cost = exp(log_electricity_cost);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Predicted_Electricity_Cost = exp(predicted_values);<br>
+run;</p>
+<p>/* Create a scatterplot of predicted vs.&nbsp;actual electricity cost */<br>
+proc sgplot data=reg_results_e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scatter x=Actual_Electricity_Cost y=Predicted_Electricity_Cost / markerattrs=(symbol=CircleFilled);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title ‘Scatterplot of Predicted vs.&nbsp;Actual Electricity Cost’;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xaxis label=‘Actual Electricity Cost’;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yaxis label=‘Predicted Electricity Cost’; run;<br>
+run;<br>
+<a href="https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/9480e142-277e-48b8-bb2e-2e46547dd3a4/results" class="uri">https://odamid-usw2.oda.sas.com/SASStudio/sasexec/submissions/9480e142-277e-48b8-bb2e-2e46547dd3a4/results</a></p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.21.29%20AM.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="problem-4" class="level2">
+<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
+<section id="a.-2" class="level4">
+<h4 class="anchored" data-anchor-id="a.-2">a.</h4>
+<p>The code book is generated in STATA with codebook command.</p>
+</section>
+<section id="b.-sas" class="level4">
+<h4 class="anchored" data-anchor-id="b.-sas">b. SAS</h4>
+<p>filename pub2022 ‘/home/u63650722/public2022.csv’;<br>
+<br>
+proc import datafile=pub2022<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out=pub<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbms=csv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getnames=yes;<br>
+run;</p>
+<p>/*<em>Select variables using PROC SQL *</em>/<br>
+proc sql;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create table SelectedVars as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select CaseID, B3, ND2, B7_b, GH1, ppeducat, ppethm, weight_pop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from pub;<br>
+quit;</p>
+</section>
+<section id="c.-sas" class="level4">
+<h4 class="anchored" data-anchor-id="c.-sas">c.&nbsp;SAS</h4>
+<p>/*<em>Save the selected variables in Stata format *</em>/<br>
+data <em>null</em>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file “p2022.dta”<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dlm=“,”;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set SelectedVars;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;put (<em>all</em>) (+0);<br>
+run;</p>
+</section>
+<section id="d.-stata" class="level4">
+<h4 class="anchored" data-anchor-id="d.-stata">d.&nbsp;STATA</h4>
+<p>use “/Users/ksmin/Downloads/P2022.dta”<br>
+Describe</p>
+<p><img src="images/Screenshot%202023-10-24%20at%205.22.15%20AM.png" class="img-fluid"></p>
+</section>
+<section id="e.-stata" class="level4">
+<h4 class="anchored" data-anchor-id="e.-stata">e. STATA</h4>
+<p>gen B3_binary = 0<br>
+replace B3_binary = 1 if B3 == “About the same” | B3 == “Somewhat better off” | B3 == “Much better off”<br>
+<br>
+list B3_binary in 1/20<br>
+tabulate B3_binary</p>
+<p><img src="images/b3bin.jpg" class="img-fluid" width="841"></p>
+<p><img src="images/b3tab.jpg" class="img-fluid" width="309"></p>
+</section>
+<section id="f.-stata" class="level4">
+<h4 class="anchored" data-anchor-id="f.-stata">f.&nbsp;STATA</h4>
+<p>svyset CaseID [pw=weight_pop]</p>
+<p><img src="images/f.jpg" class="img-fluid" width="300"></p>
+<p>* Convert predictor variables to numeric variables<br>
+encode ND2, gen(ND2_numeric)<br>
+encode B7_b, gen(B7_b_numeric)<br>
+encode GH1, gen(GH1_numeric)<br>
+encode ppeducat, gen(ppeducat_numeric)<br>
+encode ppethm, gen(ppethm_numeric)<br>
+<br>
+* Perform survey-weighted logistic regression with the numeric factors<br>
+svy: logistic B3_binary i.ND2_numeric i.B7_b_numeric i.GH1_numeric i.ppeducat_numeric i.ppethm_numeric</p>
+<p><img src="images/logistic.jpg" class="img-fluid" width="820"></p>
+<p>*Another regression to get coefficients<br>
+svy: logit B3_binary i.ND2_numeric i.B7_b_numeric i.GH1_numeric i.ppeducat_numeric i.ppethm_numeric</p>
+<p><img src="images/logit.jpg" class="img-fluid"></p>
+<p>We can see that the F-statistics value is large of 57, and the p-value for the F-test is shown as 0.000, which indicates strong statistical significance of this model. Overall, the model is good at predicting the financial condition compared to the last 12 months of the respondent’s families. From the output, we can see that the p-values of ND2 variable is not significant for every level, while other predictor variables are. It means that ND2 model is not a statistically significant predictor in predicting the response variable. To answer the researcher’s question, we can infer that <strong>t</strong>he respondent’s family is better off, the same, or worse off financially compared to 12 month’s ago cannot be accurately predicted by thinking that the chance of experiencing a natural disaster or severe weather event will be higher, lower or about the same in 5 years.</p>
+</section>
+<section id="g.-stata" class="level4">
+<h4 class="anchored" data-anchor-id="g.-stata">g. STATA</h4>
+<p>save “P2022.dta”, replace<br>
+cd “/Users/ksmin/Downloads/”</p>
+</section>
+<section id="h.-r" class="level4">
+<h4 class="anchored" data-anchor-id="h.-r">h. R</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'/Users/katherinemin/Downloads/P2022.dta'</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  CaseID B3               ND2   B7_b  GH1   ppeducat ppethm weight_pop B3_binary
+   &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1      1 Much better off  Some… Poor  Pay … Bachelo… White…     12034.         1
+2      2 About the same   Abou… Only… Own … Bachelo… White…     21579.         1
+3      3 About the same   Abou… Only… Pay … Some co… Hispa…     20044.         1
+4      4 Somewhat worse … Abou… Poor  Pay … Bachelo… White…     21793.         0
+5      5 Somewhat worse … Much… Only… Own … Bachelo… White…     13900.         0
+6      6 Somewhat worse … Abou… Only… Own … High sc… White…     19713.         0
+# ℹ 5 more variables: ND2_numeric &lt;dbl+lbl&gt;, B7_b_numeric &lt;dbl+lbl&gt;,
+#   GH1_numeric &lt;dbl+lbl&gt;, ppeducat_numeric &lt;dbl+lbl&gt;, ppethm_numeric &lt;dbl+lbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'Matrix'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: survival</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'survey'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:graphics':
+
+    dotchart</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>design<span class="ot">&lt;-</span><span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span> CaseID, <span class="at">weight =</span> <span class="sc">~</span> weight_pop, <span class="at">data =</span> df)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>model<span class="ot">&lt;-</span><span class="fu">svyglm</span>(B3_binary <span class="sc">~</span> <span class="fu">as.factor</span>(ND2) <span class="sc">+</span> <span class="fu">as.factor</span>(B7_b) <span class="sc">+</span> <span class="fu">as.factor</span>(GH1) <span class="sc">+</span> <span class="fu">as.factor</span>(ppeducat) <span class="sc">+</span> <span class="fu">as.factor</span>(ppethm), design)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+svyglm(formula = B3_binary ~ as.factor(ND2) + as.factor(B7_b) + 
+    as.factor(GH1) + as.factor(ppeducat) + as.factor(ppethm), 
+    design = design)
+
+Survey design:
+svydesign(id = ~CaseID, weight = ~weight_pop, data = df)
+
+Coefficients:
+                                                                                     Estimate
+(Intercept)                                                                          0.934594
+as.factor(ND2)Much higher                                                           -0.011499
+as.factor(ND2)Much lower                                                             0.032136
+as.factor(ND2)Somewhat higher                                                        0.006479
+as.factor(ND2)Somewhat lower                                                         0.036694
+as.factor(B7_b)Good                                                                 -0.062685
+as.factor(B7_b)Only fair                                                            -0.174799
+as.factor(B7_b)Poor                                                                 -0.432846
+as.factor(GH1)Own your home free and clear (without a mortgage or loan)             -0.082235
+as.factor(GH1)Own your home with a mortgage or loan                                 -0.067512
+as.factor(GH1)Pay rent                                                              -0.061822
+as.factor(ppeducat)High school graduate (high school diploma or the equivalent GED) -0.033677
+as.factor(ppeducat)No high school diploma or GED                                    -0.051465
+as.factor(ppeducat)Some college or Associate's degree                               -0.026203
+as.factor(ppethm)Black, Non-Hispanic                                                 0.151800
+as.factor(ppethm)Hispanic                                                            0.056278
+as.factor(ppethm)Other, Non-Hispanic                                                 0.091542
+as.factor(ppethm)White, Non-Hispanic                                                 0.020933
+                                                                                    Std. Error
+(Intercept)                                                                           0.041974
+as.factor(ND2)Much higher                                                             0.017147
+as.factor(ND2)Much lower                                                              0.029463
+as.factor(ND2)Somewhat higher                                                         0.010904
+as.factor(ND2)Somewhat lower                                                          0.035654
+as.factor(B7_b)Good                                                                   0.027616
+as.factor(B7_b)Only fair                                                              0.026834
+as.factor(B7_b)Poor                                                                   0.027405
+as.factor(GH1)Own your home free and clear (without a mortgage or loan)               0.019529
+as.factor(GH1)Own your home with a mortgage or loan                                   0.018594
+as.factor(GH1)Pay rent                                                                0.019413
+as.factor(ppeducat)High school graduate (high school diploma or the equivalent GED)   0.011883
+as.factor(ppeducat)No high school diploma or GED                                      0.020419
+as.factor(ppeducat)Some college or Associate's degree                                 0.010943
+as.factor(ppethm)Black, Non-Hispanic                                                  0.031383
+as.factor(ppethm)Hispanic                                                             0.031794
+as.factor(ppethm)Other, Non-Hispanic                                                  0.035946
+as.factor(ppethm)White, Non-Hispanic                                                  0.029469
+                                                                                    t value
+(Intercept)                                                                          22.266
+as.factor(ND2)Much higher                                                            -0.671
+as.factor(ND2)Much lower                                                              1.091
+as.factor(ND2)Somewhat higher                                                         0.594
+as.factor(ND2)Somewhat lower                                                          1.029
+as.factor(B7_b)Good                                                                  -2.270
+as.factor(B7_b)Only fair                                                             -6.514
+as.factor(B7_b)Poor                                                                 -15.794
+as.factor(GH1)Own your home free and clear (without a mortgage or loan)              -4.211
+as.factor(GH1)Own your home with a mortgage or loan                                  -3.631
+as.factor(GH1)Pay rent                                                               -3.185
+as.factor(ppeducat)High school graduate (high school diploma or the equivalent GED)  -2.834
+as.factor(ppeducat)No high school diploma or GED                                     -2.520
+as.factor(ppeducat)Some college or Associate's degree                                -2.394
+as.factor(ppethm)Black, Non-Hispanic                                                  4.837
+as.factor(ppethm)Hispanic                                                             1.770
+as.factor(ppethm)Other, Non-Hispanic                                                  2.547
+as.factor(ppethm)White, Non-Hispanic                                                  0.710
+                                                                                    Pr(&gt;|t|)
+(Intercept)                                                                          &lt; 2e-16
+as.factor(ND2)Much higher                                                           0.502469
+as.factor(ND2)Much lower                                                            0.275408
+as.factor(ND2)Somewhat higher                                                       0.552378
+as.factor(ND2)Somewhat lower                                                        0.303423
+as.factor(B7_b)Good                                                                 0.023231
+as.factor(B7_b)Only fair                                                            7.61e-11
+as.factor(B7_b)Poor                                                                  &lt; 2e-16
+as.factor(GH1)Own your home free and clear (without a mortgage or loan)             2.56e-05
+as.factor(GH1)Own your home with a mortgage or loan                                 0.000284
+as.factor(GH1)Pay rent                                                              0.001454
+as.factor(ppeducat)High school graduate (high school diploma or the equivalent GED) 0.004603
+as.factor(ppeducat)No high school diploma or GED                                    0.011732
+as.factor(ppeducat)Some college or Associate's degree                               0.016662
+as.factor(ppethm)Black, Non-Hispanic                                                1.34e-06
+as.factor(ppethm)Hispanic                                                           0.076738
+as.factor(ppethm)Other, Non-Hispanic                                                0.010889
+as.factor(ppethm)White, Non-Hispanic                                                0.477507
+                                                                                       
+(Intercept)                                                                         ***
+as.factor(ND2)Much higher                                                              
+as.factor(ND2)Much lower                                                               
+as.factor(ND2)Somewhat higher                                                          
+as.factor(ND2)Somewhat lower                                                           
+as.factor(B7_b)Good                                                                 *  
+as.factor(B7_b)Only fair                                                            ***
+as.factor(B7_b)Poor                                                                 ***
+as.factor(GH1)Own your home free and clear (without a mortgage or loan)             ***
+as.factor(GH1)Own your home with a mortgage or loan                                 ***
+as.factor(GH1)Pay rent                                                              ** 
+as.factor(ppeducat)High school graduate (high school diploma or the equivalent GED) ** 
+as.factor(ppeducat)No high school diploma or GED                                    *  
+as.factor(ppeducat)Some college or Associate's degree                               *  
+as.factor(ppethm)Black, Non-Hispanic                                                ***
+as.factor(ppethm)Hispanic                                                           .  
+as.factor(ppethm)Other, Non-Hispanic                                                *  
+as.factor(ppethm)White, Non-Hispanic                                                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 0.2011954)
+
+Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">&lt;-</span><span class="fu">svyglm</span>(B3_binary <span class="sc">~</span> <span class="fu">as.factor</span>(ND2) <span class="sc">+</span> <span class="fu">as.factor</span>(B7_b) <span class="sc">+</span> <span class="fu">as.factor</span>(GH1) <span class="sc">+</span> <span class="fu">as.factor</span>(ppeducat) <span class="sc">+</span> <span class="fu">as.factor</span>(ppethm), </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">design=</span>design, <span class="at">family=</span><span class="fu">quasibinomial</span>())</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">psrsq</span>(model1, <span class="at">type=</span><span class="st">"Cox-Snell"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1090005</code></pre>
+</div>
+</div>
+<p>Github: <a href="https://github.com/katherinesmin/STATS506" class="uri">https://github.com/katherinesmin/STATS506</a></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
