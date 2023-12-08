@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Fianl Project_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Fianl Project_files/libs/quarto-html/quarto.js"></script>
+<script src="Fianl Project_files/libs/quarto-html/popper.min.js"></script>
+<script src="Fianl Project_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Fianl Project_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Fianl Project_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Fianl Project_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Fianl Project_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Fianl Project_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Fianl Project_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="get-data" class="level2">
+<h2 class="anchored" data-anchor-id="get-data">Get data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>is <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"/Users/katherinemin/Downloads/FFIEC CDR Bulk All UBPR Ratios 2023/FFIEC CDR UBPR Ratios Income Statement dollar 2023.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"/Users/katherinemin/Downloads/FFIEC CDR Bulk All UBPR Ratios 2023/FFIEC CDR UBPR Ratios Balance Sheet dollar 2023.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>offbs<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"/Users/katherinemin/Downloads/FFIEC CDR Bulk All UBPR Ratios 2023/FFIEC CDR UBPR Ratios Off Balance Sheet Items 2023.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merge-data-sets" class="level2">
+<h2 class="anchored" data-anchor-id="merge-data-sets">Merge Data Sets</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: gsubfn</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: proto</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':
+  dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 0x0006): Library not loaded: /opt/X11/lib/libSM.6.dylib
+  Referenced from: &lt;31E358D7-5244-302A-AC24-2741F2D47CBF&gt; /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/modules/R_X11.so
+  Reason: tried: '/opt/X11/lib/libSM.6.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/X11/lib/libSM.6.dylib' (no such file), '/opt/X11/lib/libSM.6.dylib' (no such file), '/Library/Frameworks/R.framework/Resources/lib/libSM.6.dylib' (no such file), '/Library/Java/JavaVirtualMachines/jdk-11.0.18+10/Contents/Home/lib/server/libSM.6.dylib' (no such file)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tcltk DLL is linked to '/opt/X11/lib/libX11.6.dylib'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Could not load tcltk.  Will use slower R code instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">sqldf</span>(<span class="st">"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">  SELECT *</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">  FROM `is`</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN bs ON `is`.`ID.RSSD` = bs.`ID.RSSD` AND `is`.`Reporting.Period` = bs.`Reporting.Period`</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">  JOIN offbs ON `is`.`ID.RSSD` = offbs.`ID.RSSD` AND `is`.`Reporting.Period` = offbs.`Reporting.Period`</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> merged_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">73</span>, <span class="dv">74</span>, <span class="dv">75</span>,<span class="dv">230</span>,<span class="dv">231</span>,<span class="dv">232</span>,<span class="fu">ncol</span>(merged_data))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="subset-data-with-necessary-columns" class="level2">
+<h2 class="anchored" data-anchor-id="subset-data-with-necessary-columns">Subset Data with Necessary Columns</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>selected_columns <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( Reporting.Period, ID.RSSD, UBPRE119, UBPR2200, UBPRG105, UBPR2170, UBPR4340, UBPRD655, UBPR3818, UBPR2170, UBPRE129)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="remove-duplicate-rows" class="level2">
+<h2 class="anchored" data-anchor-id="remove-duplicate-rows">Remove duplicate rows</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>unique_merged_data <span class="ot">&lt;-</span> <span class="fu">distinct</span>(selected_columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="convert-to-numeric-variables" class="level2">
+<h2 class="anchored" data-anchor-id="convert-to-numeric-variables">Convert to Numeric Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>unique_merged_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(unique_merged_data[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], as.numeric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rename-variables" class="level2">
+<h2 class="anchored" data-anchor-id="rename-variables">Rename Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Period"</span>, <span class="st">"ID"</span>, <span class="st">"NetLL"</span>,<span class="st">"TDep"</span>,<span class="st">"TC"</span>,<span class="st">"TA"</span>,<span class="st">"NI"</span>,<span class="st">"StandbyLOC"</span>,<span class="st">"UnusedCom"</span>,<span class="st">"TL"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(unique_merged_data) <span class="ot">&lt;-</span> new_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-a-new-variable" class="level2">
+<h2 class="anchored" data-anchor-id="make-a-new-variable">Make a New Variable</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>unique_merged_data<span class="sc">$</span>TE <span class="ot">&lt;-</span> unique_merged_data<span class="sc">$</span>TA <span class="sc">-</span> unique_merged_data<span class="sc">$</span>TL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-ratios---predictor-variables" class="level2">
+<h2 class="anchored" data-anchor-id="make-ratios---predictor-variables">Make Ratios - Predictor Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Period =</span> unique_merged_data<span class="sc">$</span>Period,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> unique_merged_data<span class="sc">$</span>ID,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Loan_to_Dep =</span> unique_merged_data<span class="sc">$</span>NetLL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TDep,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Leverage =</span> unique_merged_data<span class="sc">$</span>TC <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TA,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Debt_to_Eq =</span> unique_merged_data<span class="sc">$</span>TL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TE,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Debt_to_Cap =</span> unique_merged_data<span class="sc">$</span>TL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TC,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ROE =</span> unique_merged_data<span class="sc">$</span>NI <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TE,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ROA =</span> unique_merged_data<span class="sc">$</span>NI <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TA</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Period  ID Loan_to_Dep   Leverage  Debt_to_Eq Debt_to_Cap
+1 3/31/2023 11:59:59 PM  37   0.3010625 0.14348668 0.001280219 0.008910805
+2 3/31/2023 11:59:59 PM 242   0.5800325 0.06317434 0.001048797 0.016584230
+3 3/31/2023 11:59:59 PM 279   0.8367107 0.10014846 0.006893293 0.068359515
+4 3/31/2023 11:59:59 PM 354   1.1147315 0.11885345 0.009458087 0.078832117
+5 3/31/2023 11:59:59 PM 457   1.1376051 0.08448166 0.002877918 0.033967837
+6 3/31/2023 11:59:59 PM 505   0.9576193 0.08599854 0.011959559 0.137423481
+           ROE          ROA
+1  0.002025977  0.002023387
+2  0.004691985  0.004687069
+3 -0.002285709 -0.002270061
+4 -0.005096858 -0.005049103
+5  0.003781612  0.003770760
+6  0.001916808  0.001894155</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Period =</span> unique_merged_data<span class="sc">$</span>Period,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> unique_merged_data<span class="sc">$</span>ID,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Loan_to_Dep =</span> unique_merged_data<span class="sc">$</span>NetLL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TDep,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Leverage =</span> unique_merged_data<span class="sc">$</span>TC <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TA,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Debt_to_Eq =</span> unique_merged_data<span class="sc">$</span>TL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TE,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Debt_to_Cap =</span> unique_merged_data<span class="sc">$</span>TL <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TC,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ROE =</span> unique_merged_data<span class="sc">$</span>NI <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TE,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ROA =</span> unique_merged_data<span class="sc">$</span>NI <span class="sc">/</span> unique_merged_data<span class="sc">$</span>TA,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">UnusedCom =</span> unique_merged_data<span class="sc">$</span>UnusedCom,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">StandbyLOC =</span> unique_merged_data<span class="sc">$</span>StandbyLOC</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(df2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Period  ID Loan_to_Dep   Leverage  Debt_to_Eq Debt_to_Cap
+1 3/31/2023 11:59:59 PM  37   0.3010625 0.14348668 0.001280219 0.008910805
+2 3/31/2023 11:59:59 PM 242   0.5800325 0.06317434 0.001048797 0.016584230
+3 3/31/2023 11:59:59 PM 279   0.8367107 0.10014846 0.006893293 0.068359515
+4 3/31/2023 11:59:59 PM 354   1.1147315 0.11885345 0.009458087 0.078832117
+5 3/31/2023 11:59:59 PM 457   1.1376051 0.08448166 0.002877918 0.033967837
+6 3/31/2023 11:59:59 PM 505   0.9576193 0.08599854 0.011959559 0.137423481
+           ROE          ROA UnusedCom StandbyLOC
+1  0.002025977  0.002023387      3497          0
+2  0.004691985  0.004687069      2918         36
+3 -0.002285709 -0.002270061      6359          0
+4 -0.005096858 -0.005049103      1298          0
+5  0.003781612  0.003770760      9572         34
+6  0.001916808  0.001894155     24542       1760</code></pre>
+</div>
+</div>
+</section>
+<section id="mixed-effect-regression" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-effect-regression">Mixed-Effect Regression</h2>
+<section id="model-without-off-balance-sheet-items" class="level3">
+<h3 class="anchored" data-anchor-id="model-without-off-balance-sheet-items">Model Without Off-Balance Sheet Items:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROA,df<span class="sc">$</span>ROE) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9580573</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lmerTest'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:lme4':
+
+    lmer</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROA <span class="sc">~</span> Period <span class="sc">+</span> Loan_to_Dep <span class="sc">+</span> Leverage <span class="sc">+</span> Debt_to_Eq <span class="sc">+</span> Debt_to_Cap <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID), <span class="at">data =</span> df)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: ROA ~ Period + Loan_to_Dep + Leverage + Debt_to_Eq + Debt_to_Cap +  
+    (1 | ID)
+   Data: df
+
+REML criterion at convergence: -71357
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-58.740  -0.056  -0.001   0.062  44.026 
+
+Random effects:
+ Groups   Name        Variance  Std.Dev.
+ ID       (Intercept) 0.0006873 0.02622 
+ Residual             0.0001372 0.01171 
+Number of obs: 13931, groups:  ID, 4676
+
+Fixed effects:
+                              Estimate Std. Error         df t value Pr(&gt;|t|)
+(Intercept)                  8.056e-04  1.187e-03  7.290e+03   0.679   0.4973
+Period6/30/2023 11:59:59 PM  2.904e-03  2.451e-04  9.453e+03  11.849   &lt;2e-16
+Period9/30/2023 11:59:59 PM  5.480e-03  2.485e-04  9.769e+03  22.054   &lt;2e-16
+Loan_to_Dep                 -1.680e-03  1.414e-03  7.399e+03  -1.188   0.2349
+Leverage                     8.486e-03  4.864e-03  6.215e+03   1.745   0.0811
+Debt_to_Eq                   2.494e-01  6.992e-03  7.986e+03  35.671   &lt;2e-16
+Debt_to_Cap                 -4.420e-04  2.575e-04  9.891e+03  -1.716   0.0861
+                               
+(Intercept)                    
+Period6/30/2023 11:59:59 PM ***
+Period9/30/2023 11:59:59 PM ***
+Loan_to_Dep                    
+Leverage                    .  
+Debt_to_Eq                  ***
+Debt_to_Cap                 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) P6/31P P9/31P Ln_t_D Leverg Dbt__E
+P6/30/2021P  0.003                                   
+P9/30/2021P  0.031  0.509                            
+Loan_to_Dep -0.833 -0.128 -0.180                     
+Leverage    -0.354  0.018  0.068 -0.078              
+Debt_to_Eq  -0.044 -0.026 -0.062  0.071 -0.174       
+Debt_to_Cap -0.028 -0.008 -0.031  0.001  0.031 -0.087</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(reg),<span class="fu">residuals</span>(reg),<span class="at">xlab=</span><span class="st">"Fitted"</span>,<span class="at">ylab=</span><span class="st">"Residuals"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Fianl-Project_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df[<span class="fu">predict</span>(reg) <span class="sc">&gt;</span> <span class="fl">1.0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Period      ID Loan_to_Dep  Leverage  Debt_to_Eq
+3967  3/31/2023 11:59:59 PM 1940747   0.8914713 0.1433942 0.009753042
+8614  6/30/2023 11:59:59 PM 1396764   0.5771139 0.2030133 0.010064885
+13233 9/30/2023 11:59:59 PM 1015458   0.4651782 0.1420560 0.005092794
+      Debt_to_Cap         ROE         ROA
+3967   0.06735864 0.003597763 0.003563013
+8614   0.04908345 0.001930159 0.001910926
+13233  0.03566895 0.007956358 0.007916043</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>subset_df <span class="ot">&lt;-</span> df[<span class="fu">predict</span>(reg) <span class="sc">&lt;=</span> <span class="fl">1.0</span>, ]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROA <span class="sc">~</span> Period <span class="sc">+</span> Loan_to_Dep <span class="sc">+</span> Leverage <span class="sc">+</span> Debt_to_Eq <span class="sc">+</span> Debt_to_Cap <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID), <span class="at">data =</span> subset_df)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: ROA ~ Period + Loan_to_Dep + Leverage + Debt_to_Eq + Debt_to_Cap +  
+    (1 | ID)
+   Data: subset_df
+
+REML criterion at convergence: -71337
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-58.728  -0.056  -0.001   0.062  44.021 
+
+Random effects:
+ Groups   Name        Variance  Std.Dev.
+ ID       (Intercept) 0.0006873 0.02622 
+ Residual             0.0001373 0.01172 
+Number of obs: 13928, groups:  ID, 4676
+
+Fixed effects:
+                              Estimate Std. Error         df t value Pr(&gt;|t|)
+(Intercept)                  8.059e-04  1.187e-03  7.289e+03   0.679   0.4972
+Period6/30/2023 11:59:59 PM  2.904e-03  2.452e-04  9.450e+03  11.844   &lt;2e-16
+Period9/30/2023 11:59:59 PM  5.480e-03  2.486e-04  9.765e+03  22.045   &lt;2e-16
+Loan_to_Dep                 -1.680e-03  1.414e-03  7.398e+03  -1.188   0.2350
+Leverage                     8.483e-03  4.864e-03  6.214e+03   1.744   0.0812
+Debt_to_Eq                   2.494e-01  6.992e-03  7.985e+03  35.671   &lt;2e-16
+Debt_to_Cap                 -4.420e-04  2.576e-04  9.888e+03  -1.716   0.0862
+                               
+(Intercept)                    
+Period6/30/2023 11:59:59 PM ***
+Period9/30/2023 11:59:59 PM ***
+Loan_to_Dep                    
+Leverage                    .  
+Debt_to_Eq                  ***
+Debt_to_Cap                 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) P6/31P P9/31P Ln_t_D Leverg Dbt__E
+P6/30/2021P  0.003                                   
+P9/30/2021P  0.030  0.509                            
+Loan_to_Dep -0.833 -0.128 -0.180                     
+Leverage    -0.354  0.018  0.068 -0.078              
+Debt_to_Eq  -0.044 -0.026 -0.062  0.071 -0.174       
+Debt_to_Cap -0.028 -0.008 -0.031  0.001  0.031 -0.087</code></pre>
+</div>
+</div>
+</section>
+<section id="model-with-off-balance-sheet-items" class="level3">
+<h3 class="anchored" data-anchor-id="model-with-off-balance-sheet-items">Model With Off-Balance Sheet Items:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>log_UnusedCom <span class="ot">&lt;-</span> <span class="fu">log</span>(df2<span class="sc">$</span>UnusedCom<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df2<span class="sc">$</span>log_StandbyLOC <span class="ot">&lt;-</span> <span class="fu">log</span>(df2<span class="sc">$</span>StandbyLOC<span class="sc">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROA <span class="sc">~</span> Period <span class="sc">+</span> Loan_to_Dep <span class="sc">+</span> Leverage <span class="sc">+</span> Debt_to_Eq <span class="sc">+</span> Debt_to_Cap <span class="sc">+</span> log_UnusedCom <span class="sc">+</span> log_StandbyLOC <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID), <span class="at">data =</span> df2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: ROA ~ Period + Loan_to_Dep + Leverage + Debt_to_Eq + Debt_to_Cap +  
+    log_UnusedCom + log_StandbyLOC + (1 | ID)
+   Data: df2
+
+REML criterion at convergence: -71329.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-58.763  -0.057  -0.001   0.062  44.029 
+
+Random effects:
+ Groups   Name        Variance  Std.Dev.
+ ID       (Intercept) 0.0006880 0.02623 
+ Residual             0.0001371 0.01171 
+Number of obs: 13931, groups:  ID, 4676
+
+Fixed effects:
+                              Estimate Std. Error         df t value Pr(&gt;|t|)
+(Intercept)                 -1.711e-03  1.750e-03  7.653e+03  -0.977   0.3285
+Period6/30/2023 11:59:59 PM  2.921e-03  2.452e-04  9.459e+03  11.913   &lt;2e-16
+Period9/30/2023 11:59:59 PM  5.509e-03  2.488e-04  9.787e+03  22.139   &lt;2e-16
+Loan_to_Dep                 -2.272e-03  1.442e-03  7.707e+03  -1.575   0.1152
+Leverage                     1.175e-02  5.114e-03  6.573e+03   2.298   0.0216
+Debt_to_Eq                   2.499e-01  7.003e-03  7.988e+03  35.683   &lt;2e-16
+Debt_to_Cap                 -4.428e-04  2.574e-04  9.887e+03  -1.720   0.0854
+log_UnusedCom                2.532e-04  1.560e-04  1.055e+04   1.624   0.1045
+log_StandbyLOC               4.604e-05  1.110e-04  9.314e+03   0.415   0.6784
+                               
+(Intercept)                    
+Period6/30/2023 11:59:59 PM ***
+Period9/30/2023 11:59:59 PM ***
+Loan_to_Dep                    
+Leverage                    *  
+Debt_to_Eq                  ***
+Debt_to_Cap                 .  
+log_UnusedCom                  
+log_StandbyLOC                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) P6/31P P9/31P Ln_t_D Leverg Dbt__E Dbt__C lg_UnC
+P6/30/2021P -0.026                                                 
+P9/30/2021P -0.022  0.510                                          
+Loan_to_Dep -0.420 -0.132 -0.187                                   
+Leverage    -0.451  0.028  0.082 -0.132                            
+Debt_to_Eq  -0.065 -0.024 -0.059  0.062 -0.152                     
+Debt_to_Cap -0.017 -0.008 -0.031  0.001  0.029 -0.087              
+log_UnusdCm -0.697  0.039  0.055 -0.152  0.268  0.053 -0.001       
+lg_StndbLOC  0.115 -0.015 -0.008 -0.039  0.012 -0.030 -0.001 -0.462</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
